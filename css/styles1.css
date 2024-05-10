@@ -1,0 +1,189 @@
+/* styles.css */
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Barra de navegación */
+.navbar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+   margin-bottom: 10px;
+}
+
+img.logo{
+
+    margin-left: 0;
+    
+
+}
+
+.logo h1 {
+    margin: 0;
+}
+
+.nav-links ul {
+    list-style: none;
+    padding-right: 120px;
+    display: inline-block;
+}
+
+.nav-links li {
+    margin-right: 10rem;
+    display: inline-block;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+    display: inline-block; /* Muestra los elementos en línea */
+    margin-right: 4rem; /* Espacio entre los elementos */
+}
+
+.nav-links a:hover {
+    color: #ff9900;
+}
+
+/* Productos */
+.producto {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin: 1rem;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.producto img {
+    max-width: 100%;
+    transition: transform 0.3s;
+}
+
+.producto img:hover {
+    transform: scale(1.1);
+}
+
+.nav.navbar{
+
+    padding-left: 100px;
+    padding-right: 150px;
+}
+
+/* Estilos para la barra de navegación */
+.navbar {
+    background-color: #333;
+    padding: 80px;
+}
+
+/* Estilos para los elementos de la barra de navegación */
+.navbar a {
+    text-decoration: none;
+    color: #f4f1f1;
+    padding: 10px;
+    display: inline-block; 
+}
+
+a.ini{
+    /*display: inline-block; */
+    
+    margin-right:0%;
+
+
+
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Proporción 16:9 para videos */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 50%;
+}
+
+/* Estilos para los elementos desplegables */
+.dropdown {
+    position: relative;
+    margin-left:0%;
+    display: inline-block; 
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 40px; left: 0px;
+    background-color: #333;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(234, 228, 228, 0.2);
+    z-index: 0;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content1 {
+    display: none;
+    position: absolute;
+    top: 40px; left: 40px;
+    background-color: #050606;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(234, 228, 228, 0.2);
+    z-index: 0;
+}
+
+.dropdown:hover .dropdown-content1 {
+    display: block;
+}
+
+.producto button {
+    background-color: #ff9900;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.producto button:hover {
+    background-color: #ffcc00;
+}
+
+
+div.producto{
+
+    margin-top: 20px;
+    margin-left: 150px;
+    width: 600px;
+    float: left;
+   
+
+}
+/* Pie de página */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1500px;
+}
+
+div.imgfoot{
+
+    display: inline-block;
+    padding: 50px;
+}
