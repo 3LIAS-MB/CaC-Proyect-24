@@ -30,8 +30,6 @@ export class GamesController {
     res.status(201).json(newGame)
   }
 
-  /**/
-
   delete = async (req, res) => {
     const { id } = req.params
     const result = await this.gameModel.delete({ id })
@@ -45,15 +43,11 @@ export class GamesController {
 
   update = async (req, res) => {
     const result = validatePartialGame(req.body)
-    console.log('XDXDXDXDXD')
-    console.log(result)
     if (!result.success) {
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
     const { id } = req.params
-    console.log('ASDASDASDASDXDXDXDXD')
-    console.log(id)
-    const updatedGame = await this.movieModel.update({ id, input: result.data })
+    const updatedGame = await this.gameModel.update({ id, input: result.data })
 
     return res.json(updatedGame)
   }

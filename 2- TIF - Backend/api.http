@@ -19,13 +19,16 @@ Content-Type: application/json
 }
 
 
-### Borrar una juegos
+### BORRAR UN JUEGO POR ID
 DELETE http://localhost:1234/games/837bcc40-3c23-11ef-9303-f02f7419c768
 
-### Actualizar un juego con PATCH -> (solo una parte de el)
-PATCH http://localhost:1234/games/d5f6833b-3c08-11ef-9303-f02f7419c768
+### ACTUALIZAR UN JUEVO -> (solo una parte de el)
+PATCH http://localhost:1234/games/5f1f5724-3c2e-11ef-9303-f02f7419c768
 Content-Type: application/json
 
 {
-  "description": "asdasd"
+  "title": "Mortal Kombat",
+  "description": "Lorem ipsum",
+  "category_id": 1,
+  "price": 12.22
 }
