@@ -1,0 +1,142 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url(../img/tienda/pared.jpg);
+
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  height: 100vh;
+}
+
+.h-content {
+  box-sizing: border-box;
+  height: auto;
+  width: 100%;
+}
+
+.h-section-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  margin: auto;
+  height: 105px;
+}
+
+.h-section-a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  transition: filter 0.3s ease;
+  text-decoration: none;
+}
+
+.h-section-a:hover {
+  filter: drop-shadow(0 0 0.7em #9dccd8aa);
+}
+
+.h-content .h-logo {
+  position: relative;
+  right: 4px;
+  width: 80px;
+  margin: 0;
+  margin-left: 10px;
+}
+
+.h-content h6 {
+  position: relative;
+  bottom: 7px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #fff;
+}
+
+/**/
+
+.container {
+  background-color: #151B1E;
+  width: 500px;
+  margin: auto;
+  margin-top: 80px;
+  border-radius: 10px;
+}
+
+.header {
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.form-title {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: white;
+  margin-bottom: 0px;
+}
+
+.form {
+  margin: 5px;
+  padding: 5px;
+}
+
+.form-control {
+  background-color: #151B1E;
+  color: white;
+  border: none;
+}
+
+.form-control label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.form-control input {
+  display: block;
+  border-radius: 10px;
+  width: 100%;
+  padding: 10px;
+}
+
+.buttom-form {
+  width: 100%;
+  padding: 5px;
+  margin: 15px 0px 12px;
+  text-align: center;
+}
+
+.buttom-form button {
+  padding: 5px 30px;
+  border-color: #0DB8DE;
+  color: #0DB8DE;
+  border-radius: 0px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  background-color: #151B1E;
+}
+
+.buttom-form button:hover {
+  background-color: #093d48;
+}
+
+@media screen and (max-width: 500px) {
+  main {
+    width: 90%;
+    margin-top: -45px;
+  }
+}

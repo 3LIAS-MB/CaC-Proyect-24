@@ -1,0 +1,41 @@
+### RECUPERAR TODAS LAS JUEGOS
+GET http://localhost:1234/games
+
+### RECUPERAR UN JUEGO POR ID
+GET http://localhost:1234/movies/92179548-3bf1-11ef-9303-f02f7419c768
+
+### RECUPERAR TODOS LOS JUEGOS POR UN GENERO -> TAREA
+GET http://localhost:1234/movies?genre=Adventure
+
+### CREAR UN JUEGO CON POST
+POST http://localhost:1234/movies
+Content-Type: application/json
+id , title, description, liked, download, price, poster
+{
+  "sql": "SELECT * FROM users",
+  "title": "Lorem, ipsum dolor",
+  "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit.
+   Hic delectus inventore deleniti animi ad libero alias fugiat iure",
+  "liked": 212,
+  "download": 166,
+  "price": 15.45,
+  "poster": "https://img.fruugo.com/product/4/49/14441494_max.jpg",
+  "genre": [
+    "Crime",
+    "Drama"
+  ]
+}
+
+### Borrar una juegos
+DELETE http://localhost:1234/movies/70e978fd-7785-4995-a0ce-7bbec6a3eb06
+
+### Actualizar un juego con PATCH -> (solo una parte de el)
+PATCH http://localhost:1234/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+Content-Type: application/json
+
+{
+  // no tiene permiso para cambiar el ID,
+  // porque no se está validando
+  "id": "123",
+  "year": 1995
+}
