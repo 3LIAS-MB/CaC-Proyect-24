@@ -2,40 +2,30 @@
 GET http://localhost:1234/games
 
 ### RECUPERAR UN JUEGO POR ID
-GET http://localhost:1234/movies/92179548-3bf1-11ef-9303-f02f7419c768
-
-### RECUPERAR TODOS LOS JUEGOS POR UN GENERO -> TAREA
-GET http://localhost:1234/movies?genre=Adventure
+GET http://localhost:1234/games/d5f6833b-3c08-11ef-9303-f02f7419c768
 
 ### CREAR UN JUEGO CON POST
-POST http://localhost:1234/movies
+POST http://localhost:1234/games
 Content-Type: application/json
-id , title, description, liked, download, price, poster
+
 {
-  "sql": "SELECT * FROM users",
   "title": "Lorem, ipsum dolor",
-  "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit.
-   Hic delectus inventore deleniti animi ad libero alias fugiat iure",
+  "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic delectus",
+  "category_id": 1,
   "liked": 212,
   "download": 166,
   "price": 15.45,
-  "poster": "https://img.fruugo.com/product/4/49/14441494_max.jpg",
-  "genre": [
-    "Crime",
-    "Drama"
-  ]
+  "poster": "https://img.fruugo.com/product/4/49/14441494_max.jpg"
 }
 
+
 ### Borrar una juegos
-DELETE http://localhost:1234/movies/70e978fd-7785-4995-a0ce-7bbec6a3eb06
+DELETE http://localhost:1234/games/837bcc40-3c23-11ef-9303-f02f7419c768
 
 ### Actualizar un juego con PATCH -> (solo una parte de el)
-PATCH http://localhost:1234/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+PATCH http://localhost:1234/games/d5f6833b-3c08-11ef-9303-f02f7419c768
 Content-Type: application/json
 
 {
-  // no tiene permiso para cambiar el ID,
-  // porque no se está validando
-  "id": "123",
-  "year": 1995
+  "description": "asdasd"
 }

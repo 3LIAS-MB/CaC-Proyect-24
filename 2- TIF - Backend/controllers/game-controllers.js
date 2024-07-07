@@ -6,35 +6,35 @@ export class GamesController {
   }
 
   getAll = async (req, res) => {
+    // parametros de consulta
     const { categories } = req.query
     const games = await this.gameModel.getAll({ categories })
     res.json(games)
   }
 
   getById = async (req, res) => {
+    // parametros de ruta
     const { id } = req.params
-    const movie = await this.movieModel.getById({ id })
-    if (movie) return res.json(movie)
-    res.status(404).json({ message: 'Movie not found' })
+    const game = await this.gameModel.getById({ id })
+    if (game) return res.json(game)
+    res.status(404).json({ message: 'Game not found' })
   }
 
   create = async (req, res) => {
     const result = validateGame(req.body)
-
     if (!result.success) {
-    // 422 Unprocessable Entity
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
+    const newGame = await this.gameModel.create({ input: result.data })
 
-    const newMovie = await this.movieModel.create({ input: result.data })
-
-    res.status(201).json(newMovie)
+    res.status(201).json(newGame)
   }
+
+  /**/
 
   delete = async (req, res) => {
     const { id } = req.params
-
-    const result = await this.movieModel.delete({ id })
+    const result = await this.gameModel.delete({ id })
 
     if (result === false) {
       return res.status(404).json({ message: 'Movie not found' })
@@ -45,15 +45,16 @@ export class GamesController {
 
   update = async (req, res) => {
     const result = validatePartialGame(req.body)
-
+    console.log('XDXDXDXDXD')
+    console.log(result)
     if (!result.success) {
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
-
     const { id } = req.params
+    console.log('ASDASDASDASDXDXDXDXD')
+    console.log(id)
+    const updatedGame = await this.movieModel.update({ id, input: result.data })
 
-    const updatedMovie = await this.movieModel.update({ id, input: result.data })
-
-    return res.json(updatedMovie)
+    return res.json(updatedGame)
   }
 }

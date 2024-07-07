@@ -11,93 +11,121 @@ const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
 const connection = await mysql.createConnection(connectionString)
 
 export class GameModel {
-  static async getAll ({ genre }) {
-    // if (genre) {
-    //   const lowerCaseGenre = genre.toLowerCase()
-
-    //   // get genre ids from database table using genre names
-    //   const [genres] = await connection.query(
-    //     'SELECT id, name FROM genre WHERE LOWER(name) = ?;',
-    //     [lowerCaseGenre]
-    //   )
-
-    //   // no genre found
-    //   if (genres.length === 0) return []
-
-    //   // get the id from the first genre result
-    //   const [{ id }] = genres
-
-    //   // get all movies ids from database table
-    //   // la query a movie_genres
-    //   // join
-    //   // y devolver resultados..
-    //   return []
-    // }
-
+  static async getAll ({ category }) {
     const [games] = await connection.query(
-      'SELECT BIN_TO_UUID(id) id , title, description, liked, download, price, poster FROM games;'
+      'SELECT BIN_TO_UUID(id) id , title, description, category_id, liked, download, price, poster FROM games;'
     )
-    return games
+    const [pavos] = await connection.query(
+      'SELECT id, titulo, category_id, price FROM pavos;'
+    )
+    const [xbox] = await connection.query(
+      'SELECT id, titulo, category_id, price FROM xbox'
+    )
+    const allProducts = [...games, ...pavos, ...xbox]
+
+    return allProducts
   }
 
-  // El resultado es una tupla de dos elementos, un array de 2 posiciones.
-  // La 1ra posicion es el resultado de la query y la 2da es la info de la tabla
   static async getById ({ id }) {
-    const [movies] = await connection.query(
-      `SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id
-        FROM movie WHERE id = UUID_TO_BIN(?);`,
+    const [games] = await connection.query(
+      'SELECT BIN_TO_UUID(id) id , title, description, liked, download, price, poster FROM games WHERE id = UUID_TO_BIN(?);',
       [id]
     )
 
-    if (movies.length === 0) return null
+    if (games.length === 0) return null
 
-    return movies[0]
+    return games[0]
   }
 
-  // static async create ({ input }) {
-  //   const {
-  //     genre: genreInput, // genre is an array
-  //     title,
-  //     year,
-  //     duration,
-  //     director,
-  //     rate,
-  //     poster
-  //   } = input
+  static async create ({ input }) {
+    console.log(input)
+    const { title, description, category_id, liked, download, price, poster } =
+      input
 
-  //   // todo: crear la conexión de genre -> EJERCICIO
+    // Generar un UUID para el nuevo juego
+    const [uuidResult] = await connection.query('SELECT UUID() as uuid;')
+    const [{ uuid }] = uuidResult
 
-  //   // crypto.randomUUID()
-  //   const [uuidResult] = await connection.query('SELECT UUID() uuid;')
-  //   const [{ uuid }] = uuidResult
+    try {
+      // Insertar el nuevo juego en la tabla games
+      await connection.query(
+        'INSERT INTO games (id, title, description, category_id, liked, download, price, poster) VALUES (UUID_TO_BIN(?), ?, ?, ?, ?, ?, ?, ?);',
+        [uuid, title, description, category_id, liked, download, price, poster]
+      )
 
-  //   try {
-  //     await connection.query(
-  //       `INSERT INTO movie (id, title, year, director, duration, poster, rate)
-  //         VALUES (UUID_TO_BIN("${uuid}"), ?, ?, ?, ?, ?, ?);`,
-  //       [title, year, director, duration, poster, rate]
-  //     )
-  //   } catch (e) {
-  //     // puede enviarle información sensible
-  //     throw new Error('Error creating movie')
-  //     // enviar la traza a un servicio interno
-  //     // sendLog(e)
-  //   }
+      // Recuperar el juego recién creado para devolverlo
+      const [games] = await connection.query(
+        'SELECT BIN_TO_UUID(id) as id, title, description, liked, download, price, poster FROM games WHERE id = UUID_TO_BIN(?);',
+        [uuid]
+      )
 
-  //   const [movies] = await connection.query(
-  //     `SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id
-  //       FROM movie WHERE id = UUID_TO_BIN(?);`,
-  //     [uuid]
-  //   )
+      if (games.length === 0) {
+        throw new Error('Error retrieving the created game')
+      }
 
-  //   return movies[0]
-  // }
+      return games[0]
+    } catch (e) {
+      throw new Error()
+    }
+  }
+
+  /**/
 
   static async delete ({ id }) {
-    // ejercio fácil: crear el delete
+    try {
+      const [result] = await connection.query(
+        'DELETE FROM games WHERE id = UUID_TO_BIN(?);',
+        [id]
+      )
+
+      if (result.affectedRows === 0) {
+        throw new Error('Game not found')
+      }
+
+      return { message: 'Game deleted successfully' }
+    } catch (e) {
+      throw new Error(e.message)
+    }
   }
 
   static async update ({ id, input }) {
-    // ejercicio fácil: crear el update
+    const { title, description, category_id, liked, download, price, poster } =
+      input
+
+    try {
+      const [result] = await connection.query(
+        `UPDATE games SET 
+          title = ?,
+          description = ?,
+          category_id = ?,
+          liked = ?,
+          download = ?,
+          price = ?,
+          poster = ?
+        WHERE id = UUID_TO_BIN(?);`,
+        [title, description, category_id, liked, download, price, poster, id]
+      )
+
+      if (result.affectedRows === 0) {
+        throw new Error('Game not found or no changes made')
+      }
+
+      // Recuperar el juego actualizado para devolverlo
+      const [games] = await connection.query(
+        'SELECT BIN_TO_UUID(id) as id, title, description, liked, download, price, poster FROM games WHERE id = UUID_TO_BIN(?);',
+        [id]
+      )
+
+      console.log('EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE')
+      console.log(games)
+
+      if (games.length === 0) {
+        throw new Error('Error retrieving the updated game')
+      }
+
+      return games[0]
+    } catch (e) {
+      throw new Error(e.message)
+    }
   }
 }
